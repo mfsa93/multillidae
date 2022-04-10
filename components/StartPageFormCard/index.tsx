@@ -6,8 +6,6 @@ const StartPageFormCard = ({ children, title }: any) => {
         <div className="relative m-auto mb-2 h-[73px] w-[51px] text-center">
           <Image
             src="/images/logo.png"
-            width="73px"
-            height="51px"
             className="-rotate-90"
             layout="fill"
             objectFit="contain"
