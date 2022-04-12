@@ -11,7 +11,7 @@ const StartPageFormCard = ({ children, title }: any) => {
             objectFit="contain"
           />
         </div>
-        <div className="mb-4 w-[100%] text-center">
+        <div className="mb-4 w-full text-center">
           <h1 className="text-center text-3xl font-bold">{title}</h1>
         </div>
         <div className="self-center justify-self-center overflow-hidden rounded border bg-white py-10 px-5">
