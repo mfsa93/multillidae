@@ -1,5 +1,32 @@
 import Link from 'next/link'
-const SignIn = () => {
+import Router from 'next/router'
+import { useEffect, useState } from 'react'
+import { isLoggedIn, SignIn } from '../../services/auth'
+const SignInForm = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  useEffect(() => {
+    if (isLoggedIn()) {
+      Router.push('/dashboard')
+    }
+  })
+
+  const onChangeUsername = (e: any) => {
+    setUsername(e.target.value)
+  }
+
+  const onChangePassword = (e: any) => {
+    setPassword(e.target.value)
+  }
+
+  const login = () => {
+    SignIn({ username, password }).then((data) => {
+      if (data.token) {
+        localStorage.setItem('token', data.token)
+        Router.push('/dashboard')
+      }
+    })
+  }
   return (
     <>
       <div className="mb-4">
@@ -11,6 +38,7 @@ const SignIn = () => {
           id="username"
           type="text"
           placeholder="Username"
+          onKeyUp={onChangeUsername}
         />
       </div>
       <div className="mb-4">
@@ -22,16 +50,18 @@ const SignIn = () => {
           id="password"
           type="password"
           placeholder="Password"
+          onKeyUp={onChangePassword}
         />
       </div>
       <div className="mb-4 text-center">
         <input
+          onClick={login}
           type="button"
           className="text-light cursor-pointer rounded bg-[#03A9F5] py-3 px-10 text-white hover:bg-blue-500"
           value="LOGIN"
         />
       </div>
-      <div className="text-center">Don’t have an account yet?</div>
+      <div className="text-center">Don't have an account yet?</div>
       <div className="text-center">
         <Link href="/signup">Sign up here</Link>
       </div>
@@ -39,4 +69,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default SignInForm
